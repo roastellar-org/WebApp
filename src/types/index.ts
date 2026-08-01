@@ -139,3 +139,26 @@ export interface MyRank {
   rank: number | null
   points: number
 }
+
+export type RewardStatus = 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED'
+export type RewardType = 'POINTS' | 'TOKEN' | 'NFT'
+
+export interface NftInfo {
+  contractAddress: string
+  tokenId: string
+  imageUrl?: string | null
+  metadataUri?: string | null
+  mintStatus: 'QUEUED' | 'MINTING' | 'MINTED' | 'FAILED'
+}
+
+export interface Reward {
+  id: string
+  type: RewardType
+  status: RewardStatus
+  amount: number
+  currency?: 'USDT' | 'ARX' | null
+  source: string
+  nft?: NftInfo | null
+  createdAt: string
+  completedAt?: string | null
+}

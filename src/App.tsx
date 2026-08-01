@@ -7,6 +7,8 @@ import { Tournaments } from './pages/Tournaments'
 import { TournamentDetails } from './pages/TournamentDetails'
 import { TournamentHistory } from './pages/TournamentHistory'
 import { Leaderboard } from './pages/Leaderboard'
+import { Rewards } from './pages/Rewards'
+import { Inventory } from './pages/Inventory'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { AppLayout } from './components/layout/AppLayout'
 
@@ -22,6 +24,8 @@ export default function App() {
           <Route path="/tournaments/:id" element={<TournamentDetails />} />
           <Route path="/tournaments/history" element={<TournamentHistory />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/rewards" element={<Rewards />} />
+          <Route path="/inventory" element={<Inventory />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
