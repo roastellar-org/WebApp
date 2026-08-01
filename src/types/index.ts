@@ -122,3 +122,20 @@ export interface TournamentDetail extends Tournament {
   rounds: number
   matches: Match[]
 }
+
+export type LeaderboardPeriod = 'daily' | 'weekly'
+
+export interface LeaderboardEntry {
+  rank: number
+  playerId: string
+  username: string
+  avatarUrl?: string | null
+  points: number
+  wins: number
+  matchesPlayed: number
+}
+
+export interface MyRank {
+  rank: number | null
+  points: number
+}
