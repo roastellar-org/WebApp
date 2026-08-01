@@ -8,6 +8,7 @@ import { usePrefetch } from '../../hooks/usePrefetch'
 import { marketplaceApi, defaultListingFilters } from '../../api/marketplace'
 import { tournamentsApi } from '../../api/tournaments'
 import { leaderboardApi } from '../../api/leaderboard'
+import { BottomNav } from './BottomNav'
 
 const navItems: Array<{ to: string; label: string; icon: IconName }> = [
   { to: '/marketplace', label: 'Marketplace', icon: 'market' },
@@ -18,6 +19,8 @@ const navItems: Array<{ to: string; label: string; icon: IconName }> = [
   { to: '/profile', label: 'Profile', icon: 'user' },
   { to: '/settings', label: 'Settings', icon: 'gear' },
 ]
+
+const primaryNavItems = navItems.slice(0, 5)
 
 export function AppLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -116,10 +119,12 @@ export function AppLayout() {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 pb-24 sm:px-6 lg:px-8 lg:pb-6">
           <Outlet />
         </main>
       </div>
+
+      <BottomNav items={primaryNavItems} />
     </div>
   )
 }

@@ -132,7 +132,7 @@ function LeaderboardRow({ entry, highlight }: { entry: LeaderboardEntry; highlig
   return (
     <li
       className={cn(
-        'grid grid-cols-[3rem_1fr_4rem_4rem_4rem] items-center gap-4 px-5 py-3 md:grid-cols-[4rem_1fr_6rem_6rem_6rem]',
+        'grid grid-cols-[3rem_1fr_5rem] items-center gap-4 px-5 py-3 md:grid-cols-[4rem_1fr_6rem_6rem_6rem]',
         highlight ? 'bg-brand-50/70 dark:bg-brand-950/40' : 'bg-app',
       )}
     >
@@ -146,8 +146,8 @@ function LeaderboardRow({ entry, highlight }: { entry: LeaderboardEntry; highlig
           </Badge>
         )}
       </div>
-      <span className="text-sm text-muted">{entry.wins}</span>
-      <span className="text-sm text-muted">{entry.matchesPlayed}</span>
+      <span className="hidden text-sm text-muted md:block">{entry.wins}</span>
+      <span className="hidden text-sm text-muted md:block">{entry.matchesPlayed}</span>
       <span className="text-right text-sm font-semibold text-brand-700 dark:text-brand-300">
         {formatCompactNumber(entry.points)}
       </span>
