@@ -23,20 +23,63 @@ export interface WalletError {
   message: string
 }
 
+const REJECTED_CODES = new Set<number | string>([
+  4001,
+  'ACTION_REJECTED',
+  'action_rejected',
+  'userRejectedRequest',
+  'user_rejected_request',
+  'USER_REJECTED',
+])
+
+const PENDING_CODES = new Set<number | string>([-32002, 'ALREADY_PENDING', 'already_pending'])
+
 export function normalizeWalletError(error: unknown): WalletError {
-  if (error && typeof error === 'object' && 'code' in error) {
-    const code = (error as { code: unknown }).code
-    if (code === 4001 || code === 'ACTION_REJECTED') {
+  if (error && typeof error === 'object') {
+    const raw = error as { code?: unknown; message?: unknown }
+    const code = raw.code
+    const message = typeof raw.message === 'string' ? raw.message.toLowerCase() : ''
+
+    if (typeof code === 'number' && REJECTED_CODES.has(code)) {
       return { code: 'USER_REJECTED', message: 'Signature request was rejected.' }
     }
-    if (code === -32002) {
+    if (typeof code === 'string' && REJECTED_CODES.has(code.toLowerCase())) {
+      return { code: 'USER_REJECTED', message: 'Signature request was rejected.' }
+    }
+    if (message.includes('user rejected') || message.includes('user denied')) {
+      return { code: 'USER_REJECTED', message: 'Signature request was rejected.' }
+    }
+
+    if (typeof code === 'number' && PENDING_CODES.has(code)) {
       return {
         code: 'PENDING_REQUEST',
-        message: 'A connection request is already pending. Check your wallet extension.',
+        message: 'A connection request is already pending. Approve it in your wallet or try again in a moment.',
+      }
+    }
+    if (typeof code === 'string' && PENDING_CODES.has(code.toLowerCase())) {
+      return {
+        code: 'PENDING_REQUEST',
+        message: 'A connection request is already pending. Approve it in your wallet or try again in a moment.',
+      }
+    }
+    if (message.includes('already pending') || message.includes('in progress')) {
+      return {
+        code: 'PENDING_REQUEST',
+        message: 'A connection request is already pending. Approve it in your wallet or try again in a moment.',
+      }
+    }
+
+    if (code === 4902 || code === 'UNSUPPORTED_CHAIN') {
+      return {
+        code: 'UNSUPPORTED_CHAIN',
+        message: 'This network is not supported. Switch networks in your wallet and try again.',
       }
     }
   }
-  return { code: 'UNKNOWN', message: 'Something went wrong while connecting your wallet.' }
+  return {
+    code: 'UNKNOWN',
+    message: 'Something went wrong while connecting your wallet. Please try again.',
+  }
 }
 
 export function getWalletProvider(): WalletProvider | null {
