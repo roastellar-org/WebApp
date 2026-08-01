@@ -7,6 +7,17 @@ export default defineConfig({
   build: {
     sourcemap: true,
     chunkSizeWarningLimit: 700,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          router: ['react-router-dom'],
+          query: ['@tanstack/react-query'],
+          ethers: ['ethers'],
+          socket: ['socket.io-client'],
+        },
+      },
+    },
   },
   test: {
     environment: 'node',
