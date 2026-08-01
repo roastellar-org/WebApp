@@ -1,8 +1,9 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Badge } from '../components/Badge'
 import { Button } from '../components/Button'
 import { Card } from '../components/Card'
-import { useToast } from '../components/Toast'
+import { LoginDialog } from '../components/LoginDialog'
 
 const games = [
   { name: 'Apex Arenas', genre: 'Battle Royale', gradient: 'from-rose-500 to-orange-500' },
@@ -33,7 +34,7 @@ const steps = [
 ]
 
 export function Landing() {
-  const { push } = useToast()
+  const [loginOpen, setLoginOpen] = useState(false)
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200">
@@ -56,7 +57,7 @@ export function Landing() {
               Leaderboard
             </Link>
           </nav>
-          <Button size="sm" onClick={() => push('info', 'Wallet login arrives with Season 7. Hang tight.')}>
+          <Button size="sm" onClick={() => setLoginOpen(true)}>
             Connect wallet
           </Button>
         </div>
@@ -80,10 +81,7 @@ export function Landing() {
               Compete, collect, and trade in a marketplace backed by real rewards.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button
-                size="lg"
-                onClick={() => push('info', 'Wallet login arrives with Season 7. Hang tight.')}
-              >
+              <Button size="lg" onClick={() => setLoginOpen(true)}>
                 Enter the Arena
               </Button>
               <Link to="/tournaments">
@@ -165,6 +163,8 @@ export function Landing() {
           </div>
         </section>
       </main>
+
+      <LoginDialog open={loginOpen} onClose={() => setLoginOpen(false)} />
 
       <footer className="border-t border-slate-800/60">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-8 text-sm text-slate-500 sm:flex-row sm:px-6">
