@@ -38,6 +38,9 @@ export const marketplaceApi = {
     api.post<PurchaseResult>(`/api/marketplace/listings/${listingId}/purchase`, { idempotencyKey }),
 
   inventory: () => api.get<InventoryItem[]>('/api/marketplace/inventory'),
+
+  createListing: (assetId: string, price: number) =>
+    api.post<AssetListing>('/api/marketplace/listings', { assetId, price }),
 }
 
 export function useListingsQuery(filters: ListingFilters) {
@@ -72,5 +75,17 @@ export function useInventoryQuery() {
   return useQuery({
     queryKey: ['inventory'],
     queryFn: marketplaceApi.inventory,
+  })
+}
+
+export function useCreateListingMutation() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({ assetId, price }: { assetId: string; price: number }) =>
+      marketplaceApi.createListing(assetId, price),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['inventory'] })
+      void queryClient.invalidateQueries({ queryKey: ['listings'] })
+    },
   })
 }
