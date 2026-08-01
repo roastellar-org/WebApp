@@ -78,3 +78,47 @@ export interface PurchaseResult {
   asset: Asset
   price: number
 }
+
+export type TournamentStatus = 'DRAFT' | 'OPEN' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED'
+export type TournamentMode = 'SINGLE_ELIMINATION' | 'DOUBLE_ELIMINATION' | 'ROUND_ROBIN'
+
+export interface PlayerRef {
+  id: string
+  username: string
+  avatarUrl?: string | null
+}
+
+export interface Tournament {
+  id: string
+  name: string
+  game: string
+  status: TournamentStatus
+  mode: TournamentMode
+  entryFee: number
+  prizePool: number
+  currency: 'USDT'
+  maxPlayers: number
+  registeredPlayers: number
+  startsAt: string
+  endsAt: string
+  winner?: PlayerRef | null
+  joined?: boolean
+}
+
+export type MatchStatus = 'PENDING' | 'LIVE' | 'COMPLETED'
+
+export interface Match {
+  id: string
+  tournamentId: string
+  round: number
+  playerA?: PlayerRef | null
+  playerB?: PlayerRef | null
+  winnerId?: string | null
+  status: MatchStatus
+  scheduledAt?: string | null
+}
+
+export interface TournamentDetail extends Tournament {
+  rounds: number
+  matches: Match[]
+}
