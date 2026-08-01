@@ -25,14 +25,13 @@ export interface WalletError {
 
 const REJECTED_CODES = new Set<number | string>([
   4001,
-  'ACTION_REJECTED',
   'action_rejected',
-  'userRejectedRequest',
+  'userrejectedrequest',
   'user_rejected_request',
-  'USER_REJECTED',
+  'user_rejected',
 ])
 
-const PENDING_CODES = new Set<number | string>([-32002, 'ALREADY_PENDING', 'already_pending'])
+const PENDING_CODES = new Set<number | string>([-32002, 'already_pending'])
 
 export function normalizeWalletError(error: unknown): WalletError {
   if (error && typeof error === 'object') {
