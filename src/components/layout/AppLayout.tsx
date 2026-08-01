@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet } from 'react-router-dom'
 import { cn } from '../../lib/cn'
 import { Icon, type IconName } from '../Icon'
 import { WalletMenu } from '../WalletMenu'
+import { useLiveUpdates } from '../../hooks/useLiveUpdates'
 
 const navItems: Array<{ to: string; label: string; icon: IconName }> = [
   { to: '/marketplace', label: 'Marketplace', icon: 'market' },
@@ -16,6 +17,7 @@ const navItems: Array<{ to: string; label: string; icon: IconName }> = [
 
 export function AppLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  useLiveUpdates()
 
   const navigation = (
     <nav className="flex flex-col gap-1" aria-label="Main navigation">
