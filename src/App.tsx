@@ -9,6 +9,8 @@ import { TournamentHistory } from './pages/TournamentHistory'
 import { Leaderboard } from './pages/Leaderboard'
 import { Rewards } from './pages/Rewards'
 import { Inventory } from './pages/Inventory'
+import { Profile } from './pages/Profile'
+import { Settings } from './pages/Settings'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { AppLayout } from './components/layout/AppLayout'
 
@@ -26,6 +28,8 @@ export default function App() {
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/rewards" element={<Rewards />} />
           <Route path="/inventory" element={<Inventory />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFound />} />
