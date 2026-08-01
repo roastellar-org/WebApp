@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useListingsQuery, type ListingFilters } from '../api/marketplace'
+import { useListingsQuery, defaultListingFilters, type ListingFilters } from '../api/marketplace'
 import { ListingCard } from '../components/marketplace/ListingCard'
 import { ListingFilters as FiltersBar } from '../components/marketplace/ListingFilters'
 import { PurchaseModal } from '../components/marketplace/PurchaseModal'
@@ -9,7 +9,7 @@ import { Button } from '../components/Button'
 import { Skeleton } from '../components/Skeleton'
 import type { AssetListing } from '../types'
 
-const defaultFilters: ListingFilters = { category: 'ALL', rarity: 'ALL', sort: 'newest', search: '', page: 1 }
+const defaultFilters: ListingFilters = defaultListingFilters
 
 export function Marketplace() {
   const [filters, setFilters] = useState<ListingFilters>(defaultFilters)

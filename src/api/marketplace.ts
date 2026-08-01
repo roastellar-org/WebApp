@@ -17,6 +17,14 @@ export interface ListingFilters {
   page?: number
 }
 
+export const defaultListingFilters: ListingFilters = {
+  category: 'ALL',
+  rarity: 'ALL',
+  sort: 'newest',
+  search: '',
+  page: 1,
+}
+
 function buildQueryString(filters: ListingFilters): string {
   const params = new URLSearchParams()
   if (filters.category && filters.category !== 'ALL') params.set('category', filters.category)
