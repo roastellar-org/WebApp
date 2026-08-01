@@ -1,4 +1,4 @@
-import type { BadgeTone } from '../Badge'
+import type { BadgeTone } from '../components/Badge'
 
 export const tournamentStatusTone: Record<string, BadgeTone> = {
   OPEN: 'success',

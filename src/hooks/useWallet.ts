@@ -11,6 +11,19 @@ interface WalletState {
 
 const initialState: WalletState = { account: null, chainId: null, connecting: false, error: null }
 
+interface PermissionResult {
+  eth_accounts?: { accounts?: string[] }
+}
+
+function extractAccounts(permissions: unknown): string[] {
+  const list = permissions as PermissionResult[]
+  return list?.[0]?.eth_accounts?.accounts ?? []
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, ms))
+}
+
 export function useWallet() {
   const [state, setState] = useState<WalletState>(initialState)
   const providerRef = useRef<BrowserProvider | null>(null)
@@ -48,20 +61,67 @@ export function useWallet() {
       return null
     }
     setState((prev) => ({ ...prev, connecting: true, error: null }))
-    try {
+
+    const requestAccounts = async (): Promise<string[]> => {
       const accounts = (await provider.request({ method: 'eth_requestAccounts' })) as string[]
-      const account = accounts[0] ?? null
-      accountRef.current = account
+      return accounts ?? []
+    }
+
+    const requestPermissions = async (): Promise<string[]> => {
+      const permissions = (await provider.request({
+        method: 'wallet_requestPermissions',
+        params: [{ eth_accounts: {} }],
+      })) as unknown
+      return extractAccounts(permissions)
+    }
+
+    let accounts: string[] | null = null
+    try {
+      accounts = await requestAccounts()
+    } catch (error) {
+      const normalized = normalizeWalletError(error)
+      if (normalized.code === 'PENDING_REQUEST') {
+        await wait(1200)
+        try {
+          accounts = await requestAccounts()
+        } catch (secondError) {
+          const retry = normalizeWalletError(secondError)
+          if (retry.code === 'PENDING_REQUEST') {
+            try {
+              accounts = await requestPermissions()
+            } catch {
+              setState((prev) => ({ ...prev, connecting: false, error: retry }))
+              return null
+            }
+          } else {
+            setState((prev) => ({ ...prev, connecting: false, error: retry }))
+            return null
+          }
+        }
+      } else if (normalized.code === 'UNSUPPORTED_CHAIN') {
+        setState((prev) => ({ ...prev, connecting: false, error: normalized }))
+        return null
+      } else {
+        try {
+          accounts = await requestPermissions()
+        } catch {
+          setState((prev) => ({ ...prev, connecting: false, error: normalized }))
+          return null
+        }
+      }
+    }
+
+    const account = accounts?.[0] ?? null
+    accountRef.current = account
+    try {
       const ethersProvider = new BrowserProvider(provider)
       providerRef.current = ethersProvider
       const network = await ethersProvider.getNetwork()
       setState({ account, chainId: network.chainId.toString(), connecting: false, error: null })
-      return account
-    } catch (error) {
-      const normalized = normalizeWalletError(error)
-      setState((prev) => ({ ...prev, connecting: false, error: normalized }))
-      return null
+    } catch {
+      setState({ account, chainId: null, connecting: false, error: null })
     }
+    return account
   }, [])
 
   const signMessage = useCallback(async (message: string): Promise<string> => {

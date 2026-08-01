@@ -19,12 +19,6 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
   const [address, setAddress] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const reset = () => {
-    setStep('idle')
-    setAddress(null)
-    setError(null)
-  }
-
   const handleConnect = async () => {
     setError(null)
     setStep('connecting')

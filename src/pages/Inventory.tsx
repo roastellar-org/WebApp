@@ -37,7 +37,7 @@ export function Inventory() {
       ) : items && items.length > 0 ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {items.map((item) => {
-            const isListed = Boolean(item.listingId && item.listingId !== 'cancelled')
+            const isListed = Boolean(item.listingId)
             return (
               <div key={item.asset.id} className="flex flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-900/60">
                 {item.asset.imageUrl ? (

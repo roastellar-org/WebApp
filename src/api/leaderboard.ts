@@ -15,6 +15,8 @@ export function useLeaderboardQuery(period: LeaderboardPeriod) {
   return useQuery({
     queryKey: ['leaderboard', period],
     queryFn: () => leaderboardApi.top(period),
+    staleTime: 60_000,
+    refetchInterval: 30_000,
   })
 }
 
@@ -22,5 +24,7 @@ export function useMyRankQuery() {
   return useQuery({
     queryKey: ['leaderboard', 'me'],
     queryFn: leaderboardApi.me,
+    staleTime: 60_000,
+    refetchInterval: 30_000,
   })
 }

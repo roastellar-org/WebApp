@@ -40,7 +40,7 @@ export function Settings() {
 
   const me = profile ?? user
   const [username, setUsername] = useState(me?.username ?? '')
-  const [notifications, setNotifications] = useState(() => {
+  const [notifications, setNotifications] = useState<Record<string, boolean>>(() => {
     try {
       const stored = localStorage.getItem(NOTIFICATION_KEY)
       return stored ? { ...notificationDefaults, ...JSON.parse(stored) } : { ...notificationDefaults }

@@ -1,4 +1,5 @@
 import { useNftStatusQuery } from '../../api/rewards'
+import { normalizeMintStatus } from '../../lib/rewards'
 import type { Reward } from '../../types'
 import { Badge } from '../Badge'
 import { Button } from '../Button'
@@ -45,7 +46,9 @@ export function NftPreviewModal({ reward, open, onClose }: NftPreviewModalProps)
 
               <div className="flex items-center justify-between">
                 <p className="text-sm font-medium text-slate-100">{reward.source}</p>
-                <Badge tone={mintStepTone[nft.mintStatus]}>{nft.mintStatus}</Badge>
+                <Badge tone={mintStepTone[normalizeMintStatus(nft.mintStatus)]}>
+                  {normalizeMintStatus(nft.mintStatus)}
+                </Badge>
               </div>
 
               <div className="space-y-2 rounded-xl border border-slate-800 bg-slate-950/60 p-4 font-mono text-xs text-slate-400">

@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { useLeaderboardQuery, useMyRankQuery, type LeaderboardPeriod } from '../api/leaderboard'
+import { useLeaderboardQuery, useMyRankQuery } from '../api/leaderboard'
+import type { LeaderboardEntry, LeaderboardPeriod } from '../types'
 import { Avatar } from '../components/Avatar'
 import { Badge } from '../components/Badge'
 import { Card } from '../components/Card'
@@ -21,7 +22,7 @@ const podiumStyles = ['bg-amber-400/10 text-amber-300', 'bg-slate-400/10 text-sl
 export function Leaderboard() {
   const [period, setPeriod] = useState<LeaderboardPeriod>('weekly')
   const [query, setQuery] = useState('')
-  const { data: entries, isPending } = useLeaderboardQuery(period)
+  const { data: entries, isPending, isFetching } = useLeaderboardQuery(period)
   const { data: myRank } = useMyRankQuery()
 
   const filtered =
@@ -59,6 +60,13 @@ export function Leaderboard() {
       )}
 
       <LeaderboardSearch value={query} onChange={setQuery} />
+
+      {isFetching && !isPending && (
+        <p className="mb-3 flex items-center gap-2 text-xs text-slate-500" aria-live="polite">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-400" />
+          Refreshing rankings…
+        </p>
+      )}
 
       {isPending ? (
         <div className="space-y-3">
