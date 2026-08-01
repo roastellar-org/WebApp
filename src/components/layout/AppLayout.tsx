@@ -68,6 +68,12 @@ export function AppLayout() {
 
   return (
     <div className="flex min-h-screen bg-app">
+      <a
+        href="#main"
+        className="sr-only z-50 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Skip to content
+      </a>
       <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-line bg-panel px-4 py-6 lg:flex">
         <Link to="/" className="mb-8 flex items-center gap-2 px-2 text-lg font-bold text-strong">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-violet-500 text-sm font-black text-white">
@@ -119,7 +125,7 @@ export function AppLayout() {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 pb-24 sm:px-6 lg:px-8 lg:pb-6">
+        <main id="main" className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 pb-24 sm:px-6 lg:px-8 lg:pb-6">
           <Outlet />
         </main>
       </div>

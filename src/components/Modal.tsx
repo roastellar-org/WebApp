@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import { cn } from '../lib/cn'
 
@@ -11,16 +11,23 @@ interface ModalProps {
 }
 
 export function Modal({ open, onClose, title, children, className }: ModalProps) {
+  const panelRef = useRef<HTMLDivElement>(null)
+  const restoreFocusRef = useRef<HTMLElement | null>(null)
+
   useEffect(() => {
     if (!open) return
+    restoreFocusRef.current = document.activeElement as HTMLElement | null
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
+    panelRef.current?.focus()
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = ''
+      restoreFocusRef.current?.focus()
+      restoreFocusRef.current = null
     }
   }, [open, onClose])
 
@@ -35,8 +42,10 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
     >
       <div className="absolute inset-0 animate-fadeIn bg-black/70 backdrop-blur-sm" onClick={onClose} />
       <div
+        ref={panelRef}
+        tabIndex={-1}
         className={cn(
-          'relative w-full max-w-lg animate-slideUp rounded-2xl border border-line bg-panel p-6 shadow-2xl',
+          'relative w-full max-w-lg animate-slideUp rounded-2xl border border-line bg-panel p-6 shadow-2xl outline-none',
           className,
         )}
       >
