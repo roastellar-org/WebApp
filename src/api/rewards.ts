@@ -16,6 +16,7 @@ export function useRewardsQuery(page = 1) {
   return useQuery({
     queryKey: ['rewards', page],
     queryFn: () => rewardsApi.list(page),
+    staleTime: 10_000,
   })
 }
 

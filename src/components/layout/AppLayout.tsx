@@ -4,6 +4,10 @@ import { cn } from '../../lib/cn'
 import { Icon, type IconName } from '../Icon'
 import { WalletMenu } from '../WalletMenu'
 import { useLiveUpdates } from '../../hooks/useLiveUpdates'
+import { usePrefetch } from '../../hooks/usePrefetch'
+import { marketplaceApi, defaultListingFilters } from '../../api/marketplace'
+import { tournamentsApi } from '../../api/tournaments'
+import { leaderboardApi } from '../../api/leaderboard'
 
 const navItems: Array<{ to: string; label: string; icon: IconName }> = [
   { to: '/marketplace', label: 'Marketplace', icon: 'market' },
@@ -19,6 +23,22 @@ export function AppLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   useLiveUpdates()
 
+  const prefetchMarketplace = usePrefetch(['listings', defaultListingFilters], () =>
+    marketplaceApi.listings(defaultListingFilters),
+  )
+  const prefetchTournaments = usePrefetch(['tournaments', { status: 'ALL' }], () =>
+    tournamentsApi.list({ status: 'ALL' }),
+  )
+  const prefetchLeaderboard = usePrefetch(['leaderboard', 'weekly'], () =>
+    leaderboardApi.top('weekly'),
+  )
+
+  const hoverPrefetch: Partial<Record<string, () => void>> = {
+    '/marketplace': prefetchMarketplace,
+    '/tournaments': prefetchTournaments,
+    '/leaderboard': prefetchLeaderboard,
+  }
+
   const navigation = (
     <nav className="flex flex-col gap-1" aria-label="Main navigation">
       {navItems.map((item) => (
@@ -26,6 +46,7 @@ export function AppLayout() {
           key={item.to}
           to={item.to}
           onClick={() => setDrawerOpen(false)}
+          onMouseEnter={hoverPrefetch[item.to]}
           className={({ isActive }) =>
             cn(
               'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',

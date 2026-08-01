@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 import type { AssetListing } from '../../types'
 import { cn } from '../../lib/cn'
 import { rarityBadge, rarityGradient } from '../../lib/assets'
 import { Avatar } from '../Avatar'
 import { Badge } from '../Badge'
 import { Button } from '../Button'
+import { marketplaceApi } from '../../api/marketplace'
 import { formatPrice } from '../../utils/format'
 
 interface ListingCardProps {
@@ -13,8 +15,17 @@ interface ListingCardProps {
 }
 
 export function ListingCard({ listing, onPurchase }: ListingCardProps) {
+  const queryClient = useQueryClient()
   const { asset } = listing
   const isSold = listing.status === 'SOLD'
+
+  const prefetchDetails = () => {
+    void queryClient.prefetchQuery({
+      queryKey: ['listing', listing.id],
+      queryFn: () => marketplaceApi.listing(listing.id),
+      staleTime: 60_000,
+    })
+  }
 
   return (
     <div
@@ -23,7 +34,7 @@ export function ListingCard({ listing, onPurchase }: ListingCardProps) {
         isSold ? 'opacity-60' : 'hover:border-brand-700',
       )}
     >
-      <Link to={`/marketplace/${listing.id}`} className="group block">
+      <Link to={`/marketplace/${listing.id}`} className="group block" onMouseEnter={prefetchDetails}>
         {asset.imageUrl ? (
           <img
             src={asset.imageUrl}

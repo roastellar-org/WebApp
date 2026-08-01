@@ -30,6 +30,7 @@ export function useTournamentsQuery(filters: TournamentFilters) {
   return useQuery({
     queryKey: ['tournaments', filters],
     queryFn: () => tournamentsApi.list(filters),
+    staleTime: 10_000,
   })
 }
 
