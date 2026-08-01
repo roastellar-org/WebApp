@@ -9,7 +9,7 @@ import { RetryRewardButton } from '../components/rewards/RetryRewardButton'
 import { PageHeader } from '../components/PageHeader'
 import { Skeleton } from '../components/Skeleton'
 import { useToast } from '../components/Toast'
-import { rewardStatusLabel, rewardStatusTone, rewardTypeLabel } from '../lib/rewards'
+import { normalizeRewardStatus, rewardStatusLabel, rewardStatusTone, rewardTypeLabel } from '../lib/rewards'
 import { formatDate, formatRelativeTime } from '../utils/format'
 import type { Reward } from '../types'
 
@@ -20,6 +20,7 @@ const typeIcons: Record<string, IconName> = {
 }
 
 function RewardRow({ reward, onPreview }: { reward: Reward; onPreview: (reward: Reward) => void }) {
+  const status = normalizeRewardStatus(reward.status)
   return (
     <li className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-slate-900/40">
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-slate-300">
@@ -29,7 +30,7 @@ function RewardRow({ reward, onPreview }: { reward: Reward; onPreview: (reward: 
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
           <p className="font-medium text-slate-100">{reward.source}</p>
-          <Badge tone={rewardStatusTone[reward.status]}>{rewardStatusLabel[reward.status]}</Badge>
+          <Badge tone={rewardStatusTone[status]}>{rewardStatusLabel[status]}</Badge>
         </div>
         <p className="mt-0.5 text-xs text-slate-500">
           {rewardTypeLabel[reward.type]} · {formatRelativeTime(reward.createdAt)}
@@ -44,7 +45,7 @@ function RewardRow({ reward, onPreview }: { reward: Reward; onPreview: (reward: 
       </div>
 
       <div className="flex items-center gap-2">
-        {reward.status === 'FAILED' && <RetryRewardButton rewardId={reward.id} />}
+        {status === 'FAILED' && <RetryRewardButton rewardId={reward.id} />}
         {reward.type === 'NFT' && (
           <Button variant="secondary" size="sm" onClick={() => onPreview(reward)}>
             View NFT
