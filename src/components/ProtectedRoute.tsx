@@ -8,8 +8,17 @@ export function ProtectedRoute() {
 
   if (isBootstrapping) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-950">
-        <Spinner className="h-8 w-8" />
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-slate-950">
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-base font-black text-white">
+            A
+          </span>
+          <span className="text-xl font-bold text-slate-100">ArenaX</span>
+        </div>
+        <div className="flex items-center gap-2 text-sm text-slate-400">
+          <Spinner className="h-4 w-4" />
+          <span>Loading your arena…</span>
+        </div>
       </div>
     )
   }

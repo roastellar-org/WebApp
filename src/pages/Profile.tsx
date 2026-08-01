@@ -1,5 +1,4 @@
 import { useMeQuery } from '../api/users'
-import { Avatar } from '../components/Avatar'
 import { AvatarUpload } from '../components/profile/AvatarUpload'
 import { Card } from '../components/Card'
 import { CopyButton } from '../components/CopyButton'

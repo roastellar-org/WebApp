@@ -12,7 +12,6 @@ import { EmptyState } from '../components/EmptyState'
 import { cn } from '../lib/cn'
 import { categoryLabels, rarityBadge, rarityGradient } from '../lib/assets'
 import { formatPrice, formatRelativeTime } from '../utils/format'
-import type { AssetListing } from '../types'
 
 export function AssetDetails() {
   const { id } = useParams<{ id: string }>()

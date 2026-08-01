@@ -1,4 +1,4 @@
-import type { BadgeTone } from '../Badge'
+import type { BadgeTone } from '../components/Badge'
 import type { NftInfo, RewardStatus, RewardType } from '../types'
 
 export const rewardStatusTone: Record<string, BadgeTone> = {

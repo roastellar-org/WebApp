@@ -21,7 +21,7 @@ import {
   tournamentStatusTone,
 } from '../lib/tournaments'
 import { formatPrice } from '../utils/format'
-import type { Match, TournamentDetail } from '../types'
+import type { Match } from '../types'
 
 function MatchCard({ match }: { match: Match }) {
   const player = (id?: string | null) => {
