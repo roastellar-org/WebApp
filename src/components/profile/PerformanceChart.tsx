@@ -16,8 +16,8 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
   return (
     <Card>
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-semibold text-slate-100">Weekly activity</h3>
-        <div className="flex items-center gap-4 text-xs text-slate-500">
+        <h3 className="font-semibold text-strong">Weekly activity</h3>
+        <div className="flex items-center gap-4 text-xs text-muted">
           <span className="flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-sm bg-brand-600" /> Matches
           </span>
@@ -34,7 +34,7 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
           return (
             <div key={day.date} className="flex flex-1 flex-col items-center gap-2">
               <div
-                className="relative w-full max-w-10 rounded-t-md bg-slate-800"
+                className="relative w-full max-w-10 rounded-t-md bg-elevated"
                 style={{ height: `${Math.max(4, matchesHeight)}%` }}
                 title={`${day.matches} matches`}
               >
@@ -44,7 +44,7 @@ export function PerformanceChart({ data }: PerformanceChartProps) {
                   title={`${day.wins} wins`}
                 />
               </div>
-              <span className="text-[10px] uppercase text-slate-600">{dayLabel(day.date)}</span>
+              <span className="text-[10px] uppercase text-muted">{dayLabel(day.date)}</span>
             </div>
           )
         })}

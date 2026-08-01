@@ -37,21 +37,21 @@ export function NftPreviewModal({ reward, open, onClose }: NftPreviewModalProps)
           ) : nft ? (
             <>
               {nft.imageUrl ? (
-                <img src={nft.imageUrl} alt={reward.source} className="w-full rounded-xl border border-slate-800" />
+                <img src={nft.imageUrl} alt={reward.source} className="w-full rounded-xl border border-line" />
               ) : (
-                <div className="flex aspect-square w-full items-center justify-center rounded-xl border border-slate-800 bg-gradient-to-br from-slate-800 to-slate-900">
-                  <span className="text-5xl font-black text-slate-700">NFT</span>
+                <div className="flex aspect-square w-full items-center justify-center rounded-xl border border-line bg-gradient-to-br from-slate-800 to-slate-900">
+                  <span className="text-5xl font-black text-muted">NFT</span>
                 </div>
               )}
 
               <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-slate-100">{reward.source}</p>
+                <p className="text-sm font-medium text-strong">{reward.source}</p>
                 <Badge tone={mintStepTone[normalizeMintStatus(nft.mintStatus)]}>
                   {normalizeMintStatus(nft.mintStatus)}
                 </Badge>
               </div>
 
-              <div className="space-y-2 rounded-xl border border-slate-800 bg-slate-950/60 p-4 font-mono text-xs text-slate-400">
+              <div className="space-y-2 rounded-xl border border-line bg-elevated p-4 font-mono text-xs text-muted">
                 <div className="flex items-center justify-between gap-3">
                   <span className="truncate">
                     Contract: {formatAddress(nft.contractAddress, 8)}
@@ -69,7 +69,7 @@ export function NftPreviewModal({ reward, open, onClose }: NftPreviewModalProps)
                   href={nft.metadataUri}
                   target="_blank"
                   rel="noreferrer"
-                  className="block text-center text-sm text-brand-400 hover:text-brand-300"
+                  className="block text-center text-sm text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
                 >
                   View metadata
                 </a>
@@ -80,7 +80,7 @@ export function NftPreviewModal({ reward, open, onClose }: NftPreviewModalProps)
               </Button>
             </>
           ) : (
-            <p className="text-sm text-slate-400">NFT details are not available yet.</p>
+            <p className="text-sm text-muted">NFT details are not available yet.</p>
           )}
         </div>
       )}

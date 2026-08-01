@@ -31,7 +31,7 @@ function MatchCard({ match }: { match: Match }) {
   const winner = player(match.winnerId)
 
   return (
-    <div className="space-y-2 rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+    <div className="space-y-2 rounded-lg border border-line bg-elevated p-3">
       {[match.playerA, match.playerB].map((entry, index) => {
         const isWinner = entry && winner?.id === entry.id
         return (
@@ -39,7 +39,7 @@ function MatchCard({ match }: { match: Match }) {
             key={index}
             className={cn(
               'flex items-center gap-2 text-sm',
-              isWinner ? 'font-semibold text-emerald-300' : 'text-slate-300',
+              isWinner ? 'font-semibold text-emerald-700 dark:text-emerald-300' : 'text-body',
             )}
           >
             <Avatar src={entry?.avatarUrl} name={entry?.username} size="xs" />
@@ -115,7 +115,7 @@ export function TournamentDetails() {
     <div className="space-y-6">
       <button
         onClick={() => navigate('/tournaments')}
-        className="flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-300"
+        className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-strong"
       >
         <Icon name="arrow-left" className="h-4 w-4" />
         Tournaments
@@ -125,12 +125,12 @@ export function TournamentDetails() {
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-slate-50">{tournament.name}</h1>
+              <h1 className="text-2xl font-bold text-strong">{tournament.name}</h1>
               <Badge tone={tournamentStatusTone[tournament.status]}>
                 {tournamentStatusLabel[tournament.status]}
               </Badge>
             </div>
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-muted">
               {tournament.game} · {tournamentModeLabel[tournament.mode]} · {tournament.registeredPlayers}/
               {tournament.maxPlayers} players
             </p>
@@ -140,7 +140,7 @@ export function TournamentDetails() {
               <Icon name="trophy" className="h-5 w-5 text-amber-400" />
               <div>
                 <p className="text-xs text-amber-400">Winner</p>
-                <p className="font-semibold text-amber-200">{tournament.winner.username}</p>
+                <p className="font-semibold text-amber-700 dark:text-amber-200">{tournament.winner.username}</p>
               </div>
             </div>
           )}
@@ -148,19 +148,19 @@ export function TournamentDetails() {
 
         <div className="grid gap-4 sm:grid-cols-3">
           <div>
-            <p className="text-xs uppercase tracking-wide text-slate-500">Prize pool</p>
-            <p className="text-xl font-semibold text-slate-100">
+            <p className="text-xs uppercase tracking-wide text-muted">Prize pool</p>
+            <p className="text-xl font-semibold text-strong">
               {formatPrice(tournament.prizePool, tournament.currency)}
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wide text-slate-500">Entry fee</p>
-            <p className="text-xl font-semibold text-slate-100">
+            <p className="text-xs uppercase tracking-wide text-muted">Entry fee</p>
+            <p className="text-xl font-semibold text-strong">
               {formatPrice(tournament.entryFee, tournament.currency)}
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-wide text-slate-500">
+            <p className="text-xs uppercase tracking-wide text-muted">
               {tournament.status === 'IN_PROGRESS' ? 'Ends in' : 'Starts in'}
             </p>
             <Countdown target={tournament.status === 'IN_PROGRESS' ? tournament.endsAt : tournament.startsAt} />
@@ -186,12 +186,12 @@ export function TournamentDetails() {
       </Card>
 
       <div>
-        <h2 className="mb-4 text-lg font-semibold text-slate-100">Bracket</h2>
+        <h2 className="mb-4 text-lg font-semibold text-strong">Bracket</h2>
         {tournament.matches.length > 0 ? (
           <div className="grid gap-6 overflow-x-auto pb-2 md:grid-cols-4">
             {matchesByRound.map((matches, index) => (
               <div key={index} className="min-w-52 space-y-3">
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                <p className="text-xs font-medium uppercase tracking-wide text-muted">
                   Round {index + 1}
                 </p>
                 {matches.map((match) => (

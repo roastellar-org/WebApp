@@ -54,7 +54,7 @@ export function ListAssetModal({ item, open, onClose }: ListAssetModalProps) {
   return (
     <Modal open={open} onClose={onClose} title="List for sale">
       <div className="space-y-5">
-        <div className="flex items-center gap-4 rounded-xl border border-slate-800 bg-slate-950/60 p-4">
+        <div className="flex items-center gap-4 rounded-xl border border-line bg-elevated p-4">
           {asset.imageUrl ? (
             <img src={asset.imageUrl} alt={asset.name} className="h-14 w-14 rounded-lg object-cover" />
           ) : (
@@ -68,8 +68,8 @@ export function ListAssetModal({ item, open, onClose }: ListAssetModalProps) {
             </div>
           )}
           <div className="min-w-0">
-            <p className="truncate font-semibold text-slate-100">{asset.name}</p>
-            <p className="text-xs text-slate-500">
+            <p className="truncate font-semibold text-strong">{asset.name}</p>
+            <p className="text-xs text-muted">
               {asset.category} · {asset.rarity}
             </p>
           </div>
@@ -93,13 +93,13 @@ export function ListAssetModal({ item, open, onClose }: ListAssetModalProps) {
         </Field>
 
         {priceError === false && price && (
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted">
             You will receive {formatPrice(numericPrice * 0.98, 'USDT')} after the sale.
           </p>
         )}
 
         {createListing.isError && (
-          <p className="rounded-lg border border-rose-800 bg-rose-950/50 px-3 py-2 text-sm text-rose-300" role="alert">
+          <p className="rounded-lg border border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/50 dark:text-rose-300" role="alert">
             {createListing.error instanceof Error ? createListing.error.message : 'Listing failed.'}
           </p>
         )}

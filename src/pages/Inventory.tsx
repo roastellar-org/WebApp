@@ -25,7 +25,7 @@ export function Inventory() {
       {isPending ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 8 }).map((_, index) => (
-            <div key={index} className="overflow-hidden rounded-xl border border-slate-800">
+            <div key={index} className="overflow-hidden rounded-xl border border-line">
               <Skeleton className="h-36 rounded-none" />
               <div className="space-y-3 p-4">
                 <Skeleton className="h-4 w-3/4" />
@@ -39,7 +39,7 @@ export function Inventory() {
           {items.map((item) => {
             const isListed = Boolean(item.listingId)
             return (
-              <div key={item.asset.id} className="flex flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-900/60">
+              <div key={item.asset.id} className="flex flex-col overflow-hidden rounded-xl border border-line bg-panel">
                 {item.asset.imageUrl ? (
                   <img src={item.asset.imageUrl} alt={item.asset.name} className="h-36 w-full object-cover" />
                 ) : (
@@ -56,13 +56,13 @@ export function Inventory() {
                 <div className="flex flex-1 flex-col gap-3 p-4">
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0">
-                      <p className="truncate font-semibold text-slate-100">{item.asset.name}</p>
-                      <p className="text-xs text-slate-500">{categoryLabels[item.asset.category]}</p>
+                      <p className="truncate font-semibold text-strong">{item.asset.name}</p>
+                      <p className="text-xs text-muted">{categoryLabels[item.asset.category]}</p>
                     </div>
                     <Badge className={rarityBadge[item.asset.rarity]}>{item.asset.rarity}</Badge>
                   </div>
 
-                  <p className="text-xs text-slate-500">Acquired {formatDate(item.acquiredAt)}</p>
+                  <p className="text-xs text-muted">Acquired {formatDate(item.acquiredAt)}</p>
 
                   {isListed ? (
                     <Badge tone="brand" className="self-start">

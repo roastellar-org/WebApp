@@ -33,14 +33,14 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
       aria-modal="true"
       aria-label={title}
     >
-      <div className="absolute inset-0 animate-fadeIn bg-slate-950/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 animate-fadeIn bg-black/70 backdrop-blur-sm" onClick={onClose} />
       <div
         className={cn(
-          'relative w-full max-w-lg animate-slideUp rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl',
+          'relative w-full max-w-lg animate-slideUp rounded-2xl border border-line bg-panel p-6 shadow-2xl',
           className,
         )}
       >
-        {title && <h2 className="mb-4 text-lg font-semibold text-slate-100">{title}</h2>}
+        {title && <h2 className="mb-4 text-lg font-semibold text-strong">{title}</h2>}
         {children}
       </div>
     </div>,

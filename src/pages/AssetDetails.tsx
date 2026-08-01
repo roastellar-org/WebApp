@@ -54,7 +54,7 @@ export function AssetDetails() {
       <div className="space-y-4">
         <button
           onClick={() => navigate('/marketplace')}
-          className="flex items-center gap-2 text-sm text-slate-500 transition-colors hover:text-slate-300"
+          className="flex items-center gap-2 text-sm text-muted transition-colors hover:text-strong"
         >
           <Icon name="arrow-left" className="h-4 w-4" />
           Marketplace
@@ -63,12 +63,12 @@ export function AssetDetails() {
           <img
             src={asset.imageUrl}
             alt={asset.name}
-            className="aspect-square w-full rounded-2xl border border-slate-800 object-cover"
+            className="aspect-square w-full rounded-2xl border border-line object-cover"
           />
         ) : (
           <div
             className={cn(
-              'flex aspect-square w-full items-center justify-center rounded-2xl border border-slate-800 bg-gradient-to-br text-7xl font-black text-white/20',
+              'flex aspect-square w-full items-center justify-center rounded-2xl border border-line bg-gradient-to-br text-7xl font-black text-white/20',
               rarityGradient[asset.rarity],
             )}
           >
@@ -83,8 +83,8 @@ export function AssetDetails() {
 
       <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold text-slate-50">{asset.name}</h1>
-          <p className="mt-2 text-sm leading-relaxed text-slate-400">
+          <h1 className="text-3xl font-bold text-strong">{asset.name}</h1>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
             {asset.description ?? 'Listed by a fellow competitor on the ArenaX marketplace.'}
           </p>
         </div>
@@ -93,8 +93,8 @@ export function AssetDetails() {
           <div className="grid grid-cols-3 gap-3">
             {Object.entries(asset.stats).map(([key, value]) => (
               <Card key={key} className="text-center">
-                <p className="text-2xl font-semibold text-slate-100">{value}</p>
-                <p className="mt-1 text-xs uppercase tracking-wide text-slate-500">{key}</p>
+                <p className="text-2xl font-semibold text-strong">{value}</p>
+                <p className="mt-1 text-xs uppercase tracking-wide text-muted">{key}</p>
               </Card>
             ))}
           </div>
@@ -104,12 +104,12 @@ export function AssetDetails() {
           <div className="flex items-center gap-3">
             <Avatar src={seller.avatarUrl} name={seller.username} size="lg" />
             <div>
-              <p className="font-medium text-slate-100">{seller.username}</p>
-              <p className="text-xs text-slate-500">Listed {formatRelativeTime(listing.listedAt)}</p>
+              <p className="font-medium text-strong">{seller.username}</p>
+              <p className="text-xs text-muted">Listed {formatRelativeTime(listing.listedAt)}</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-slate-50">{formatPrice(price, currency)}</p>
+            <p className="text-2xl font-bold text-strong">{formatPrice(price, currency)}</p>
             <Button
               size="sm"
               className="mt-2"

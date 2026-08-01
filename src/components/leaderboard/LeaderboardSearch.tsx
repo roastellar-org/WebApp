@@ -9,7 +9,7 @@ interface LeaderboardSearchProps {
 export function LeaderboardSearch({ value, onChange }: LeaderboardSearchProps) {
   return (
     <div className="relative mb-6">
-      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
+      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted">
         <Icon name="search" className="h-4 w-4" />
       </span>
       <Input

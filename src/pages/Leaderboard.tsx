@@ -17,7 +17,7 @@ const periodTabs = [
   { id: 'daily' as const, label: 'Daily' },
 ]
 
-const podiumStyles = ['bg-amber-400/10 text-amber-300', 'bg-slate-400/10 text-slate-300', 'bg-orange-600/10 text-orange-300']
+const podiumStyles = ['bg-amber-400/10 text-amber-600 dark:text-amber-300', 'bg-slate-400/10 text-body', 'bg-orange-600/10 text-orange-600 dark:text-orange-300']
 
 export function Leaderboard() {
   const [period, setPeriod] = useState<LeaderboardPeriod>('weekly')
@@ -48,12 +48,12 @@ export function Leaderboard() {
       {myRank && (
         <Card className="mb-6 flex flex-wrap items-center justify-between gap-3 border-brand-800/50">
           <div>
-            <p className="text-sm text-slate-400">Your rank</p>
-            <p className="text-xl font-bold text-brand-300">
+            <p className="text-sm text-muted">Your rank</p>
+            <p className="text-xl font-bold text-brand-700 dark:text-brand-300">
               {myRank.rank === null ? 'Unranked' : `#${myRank.rank}`}
             </p>
           </div>
-          <p className="text-sm text-slate-400">
+          <p className="text-sm text-muted">
             {formatCompactNumber(myRank.points)} points this {period}
           </p>
         </Card>
@@ -62,7 +62,7 @@ export function Leaderboard() {
       <LeaderboardSearch value={query} onChange={setQuery} />
 
       {isFetching && !isPending && (
-        <p className="mb-3 flex items-center gap-2 text-xs text-slate-500" aria-live="polite">
+        <p className="mb-3 flex items-center gap-2 text-xs text-muted" aria-live="polite">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-400" />
           Refreshing rankings…
         </p>
@@ -88,7 +88,7 @@ export function Leaderboard() {
                 >
                   <span className="text-2xl font-black">#{entry.rank}</span>
                   <Avatar src={entry.avatarUrl} name={entry.username} size="lg" />
-                  <p className="max-w-full truncate text-sm font-semibold text-slate-100">{entry.username}</p>
+                  <p className="max-w-full truncate text-sm font-semibold text-strong">{entry.username}</p>
                   <p className="text-lg font-bold">{formatCompactNumber(entry.points)} pts</p>
                 </Card>
               ) : null,
@@ -102,15 +102,15 @@ export function Leaderboard() {
               ))}
             </div>
           ) : (
-            <div className="overflow-hidden rounded-xl border border-slate-800">
-              <div className="hidden grid-cols-[4rem_1fr_6rem_6rem_6rem] gap-4 border-b border-slate-800 bg-slate-900/60 px-5 py-3 text-xs font-medium uppercase tracking-wide text-slate-500 md:grid">
+            <div className="overflow-hidden rounded-xl border border-line">
+              <div className="hidden grid-cols-[4rem_1fr_6rem_6rem_6rem] gap-4 border-b border-line bg-panel px-5 py-3 text-xs font-medium uppercase tracking-wide text-muted md:grid">
                 <span>Rank</span>
                 <span>Player</span>
                 <span>Wins</span>
                 <span>Matches</span>
                 <span className="text-right">Points</span>
               </div>
-              <ul className="divide-y divide-slate-800">
+              <ul className="divide-y divide-line">
                 {rest.map((entry) => (
                   <LeaderboardRow key={entry.playerId} entry={entry} highlight={false} />
                 ))}
@@ -133,22 +133,22 @@ function LeaderboardRow({ entry, highlight }: { entry: LeaderboardEntry; highlig
     <li
       className={cn(
         'grid grid-cols-[3rem_1fr_4rem_4rem_4rem] items-center gap-4 px-5 py-3 md:grid-cols-[4rem_1fr_6rem_6rem_6rem]',
-        highlight ? 'bg-brand-950/40' : 'bg-slate-950/20',
+        highlight ? 'bg-brand-50/70 dark:bg-brand-950/40' : 'bg-app',
       )}
     >
-      <span className="text-sm font-bold text-slate-400">#{entry.rank}</span>
+      <span className="text-sm font-bold text-muted">#{entry.rank}</span>
       <div className="flex min-w-0 items-center gap-3">
         <Avatar src={entry.avatarUrl} name={entry.username} size="sm" />
-        <span className="truncate text-sm font-medium text-slate-100">{entry.username}</span>
+        <span className="truncate text-sm font-medium text-strong">{entry.username}</span>
         {highlight && (
           <Badge tone="brand" className="hidden sm:inline-flex">
             You
           </Badge>
         )}
       </div>
-      <span className="text-sm text-slate-400">{entry.wins}</span>
-      <span className="text-sm text-slate-400">{entry.matchesPlayed}</span>
-      <span className="text-right text-sm font-semibold text-brand-300">
+      <span className="text-sm text-muted">{entry.wins}</span>
+      <span className="text-sm text-muted">{entry.matchesPlayed}</span>
+      <span className="text-right text-sm font-semibold text-brand-700 dark:text-brand-300">
         {formatCompactNumber(entry.points)}
       </span>
     </li>

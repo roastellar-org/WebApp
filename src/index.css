@@ -3,16 +3,36 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-app: #f8fafc;
+    --color-panel: #ffffff;
+    --color-elevated: #f1f5f9;
+    --color-line: #e2e8f0;
+    --color-strong: #0f172a;
+    --color-body: #334155;
+    --color-muted: #64748b;
+  }
+
+  .dark {
+    --color-app: #020617;
+    --color-panel: #0f172a;
+    --color-elevated: #1e293b;
+    --color-line: #1e293b;
+    --color-strong: #f1f5f9;
+    --color-body: #cbd5e1;
+    --color-muted: #64748b;
+  }
+
   html {
     @apply antialiased;
   }
 
   body {
-    @apply bg-slate-950 text-slate-200;
+    @apply bg-app text-body;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-slate-950;
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-app;
   }
 
   ::selection {
@@ -27,7 +47,7 @@
   }
 
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-slate-700;
+    @apply rounded-full bg-elevated;
   }
 
   .scrollbar-thin::-webkit-scrollbar-track {

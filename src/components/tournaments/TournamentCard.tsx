@@ -22,41 +22,41 @@ export function TournamentCard({ tournament, onJoin, onLeave, busy }: Tournament
   const spotsLeft = tournament.maxPlayers - tournament.registeredPlayers
 
   return (
-    <div className="flex flex-col rounded-xl border border-slate-800 bg-slate-900/60 p-5 transition-colors hover:border-brand-700">
+    <div className="flex flex-col rounded-xl border border-line bg-panel p-5 transition-colors hover:border-brand-700">
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
           <Link
             to={`/tournaments/${tournament.id}`}
-            className="block truncate font-semibold text-slate-100 hover:text-brand-300"
+            className="block truncate font-semibold text-strong hover:text-brand-700 dark:hover:text-brand-300"
           >
             {tournament.name}
           </Link>
-          <p className="mt-0.5 text-xs text-slate-500">{tournament.game}</p>
+          <p className="mt-0.5 text-xs text-muted">{tournament.game}</p>
         </div>
         <Badge tone={tournamentStatusTone[tournament.status]}>{tournamentStatusLabel[tournament.status]}</Badge>
       </div>
 
       <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
         <div>
-          <p className="text-xs uppercase tracking-wide text-slate-500">Prize pool</p>
-          <p className="font-semibold text-slate-100">{formatPrice(tournament.prizePool, tournament.currency)}</p>
+          <p className="text-xs uppercase tracking-wide text-muted">Prize pool</p>
+          <p className="font-semibold text-strong">{formatPrice(tournament.prizePool, tournament.currency)}</p>
         </div>
         <div>
-          <p className="text-xs uppercase tracking-wide text-slate-500">Entry fee</p>
-          <p className="font-semibold text-slate-100">{formatPrice(tournament.entryFee, tournament.currency)}</p>
+          <p className="text-xs uppercase tracking-wide text-muted">Entry fee</p>
+          <p className="font-semibold text-strong">{formatPrice(tournament.entryFee, tournament.currency)}</p>
         </div>
       </div>
 
       <div className="mt-4">
-        <div className="flex items-center justify-between text-xs text-slate-500">
+        <div className="flex items-center justify-between text-xs text-muted">
           <span>
             {tournament.registeredPlayers}/{tournament.maxPlayers} players
           </span>
           {isOpen && <span className="text-emerald-400">{spotsLeft} spots left</span>}
         </div>
-        <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-slate-800">
+        <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-elevated">
           <div
-            className={cn('h-full rounded-full', isOpen ? 'bg-brand-600' : 'bg-slate-600')}
+            className={cn('h-full rounded-full', isOpen ? 'bg-brand-600' : 'bg-elevated')}
             style={{ width: `${Math.min(100, (tournament.registeredPlayers / tournament.maxPlayers) * 100)}%` }}
           />
         </div>
@@ -64,18 +64,18 @@ export function TournamentCard({ tournament, onJoin, onLeave, busy }: Tournament
 
       <div className="mt-4 flex items-center justify-between gap-3">
         {isLive ? (
-          <span className="text-xs text-slate-500">Ends in</span>
+          <span className="text-xs text-muted">Ends in</span>
         ) : isFinished ? (
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-muted">
             {tournament.winner ? `Winner: ${tournament.winner.username}` : 'Finished'}
           </span>
         ) : (
-          <span className="text-xs text-slate-500">Starts in</span>
+          <span className="text-xs text-muted">Starts in</span>
         )}
         {isLive ? (
           <Countdown target={tournament.endsAt} />
         ) : isFinished ? (
-          <span className="text-xs text-slate-500">{new Date(tournament.endsAt).toLocaleDateString()}</span>
+          <span className="text-xs text-muted">{new Date(tournament.endsAt).toLocaleDateString()}</span>
         ) : (
           <Countdown target={tournament.startsAt} />
         )}

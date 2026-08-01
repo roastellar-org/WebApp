@@ -39,15 +39,15 @@ export function Profile() {
       <Card className="flex flex-wrap items-center gap-6">
         <AvatarUpload user={profile} />
         <div className="min-w-0 flex-1">
-          <h2 className="truncate text-2xl font-bold text-slate-50">{profile.username}</h2>
-          <div className="mt-1 flex items-center gap-2 font-mono text-sm text-slate-500">
+          <h2 className="truncate text-2xl font-bold text-strong">{profile.username}</h2>
+          <div className="mt-1 flex items-center gap-2 font-mono text-sm text-muted">
             <span className="truncate">{profile.walletAddress}</span>
             <CopyButton value={profile.walletAddress} label="Copy address" />
           </div>
-          <p className="mt-2 text-xs text-slate-500">Member since {formatDate(profile.createdAt)}</p>
+          <p className="mt-2 text-xs text-muted">Member since {formatDate(profile.createdAt)}</p>
         </div>
-        <div className="rounded-xl border border-brand-800/50 bg-brand-950/40 px-4 py-3 text-center">
-          <p className="text-2xl font-bold text-brand-300">{stats?.points ?? 0}</p>
+        <div className="rounded-xl border border-brand-200 bg-brand-50/70 px-4 py-3 text-center dark:border-brand-800/50 dark:bg-brand-950/40">
+          <p className="text-2xl font-bold text-brand-700 dark:text-brand-300">{stats?.points ?? 0}</p>
           <p className="text-xs uppercase tracking-wide text-brand-400/70">Season points</p>
         </div>
       </Card>

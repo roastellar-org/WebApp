@@ -30,7 +30,7 @@ export function ListingCard({ listing, onPurchase }: ListingCardProps) {
   return (
     <div
       className={cn(
-        'flex flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-900/60 transition-colors',
+        'flex flex-col overflow-hidden rounded-xl border border-line bg-panel transition-colors',
         isSold ? 'opacity-60' : 'hover:border-brand-700',
       )}
     >
@@ -58,22 +58,22 @@ export function ListingCard({ listing, onPurchase }: ListingCardProps) {
           <div className="min-w-0">
             <Link
               to={`/marketplace/${listing.id}`}
-              className="truncate font-semibold text-slate-100 hover:text-brand-300"
+              className="truncate font-semibold text-strong hover:text-brand-700 dark:hover:text-brand-300"
             >
               {asset.name}
             </Link>
-            <p className="text-xs text-slate-500">{asset.category}</p>
+            <p className="text-xs text-muted">{asset.category}</p>
           </div>
           <Badge className={rarityBadge[asset.rarity]}>{asset.rarity}</Badge>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-500">
+        <div className="flex items-center gap-2 text-xs text-muted">
           <Avatar src={listing.seller.avatarUrl} name={listing.seller.username} size="xs" />
           <span className="truncate">{listing.seller.username}</span>
         </div>
 
         <div className="mt-auto flex items-center justify-between">
-          <span className="text-lg font-semibold text-slate-100">
+          <span className="text-lg font-semibold text-strong">
             {formatPrice(listing.price, listing.currency)}
           </span>
           <Button

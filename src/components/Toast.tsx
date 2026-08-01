@@ -22,9 +22,9 @@ export function useToast(): ToastContextValue {
 }
 
 const kindStyles: Record<ToastKind, string> = {
-  success: 'border-emerald-700/60 text-emerald-300',
-  error: 'border-rose-700/60 text-rose-300',
-  info: 'border-brand-700/60 text-brand-300',
+  success: 'border-emerald-700/60 text-emerald-700 dark:text-emerald-300',
+  error: 'border-rose-700/60 text-rose-700 dark:text-rose-300',
+  info: 'border-brand-700/60 text-brand-700 dark:text-brand-300',
 }
 
 export function ToastProvider({ children }: { children: ReactNode }) {
@@ -49,7 +49,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           <div
             key={toast.id}
             className={cn(
-              'animate-slideUp rounded-lg border bg-slate-900/95 px-4 py-3 text-sm shadow-lg backdrop-blur',
+              'animate-slideUp rounded-lg border bg-panel px-4 py-3 text-sm shadow-lg backdrop-blur',
               kindStyles[toast.kind],
             )}
           >
