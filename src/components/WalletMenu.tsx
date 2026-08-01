@@ -37,27 +37,27 @@ export function WalletMenu() {
         onClick={() => setMenuOpen((value) => !value)}
         aria-haspopup="menu"
         aria-expanded={menuOpen}
-        className="flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900 py-1 pl-1 pr-3 text-sm transition-colors hover:border-slate-700"
+        className="flex items-center gap-2 rounded-full border border-line bg-panel py-1 pl-1 pr-3 text-sm transition-colors hover:border-line"
       >
         <Avatar src={user.avatarUrl} name={user.username} size="sm" />
-        <span className="hidden text-slate-200 md:inline">{user.username}</span>
-        <span className="font-mono text-xs text-slate-500">{formatAddress(user.walletAddress)}</span>
+        <span className="hidden text-body md:inline">{user.username}</span>
+        <span className="font-mono text-xs text-muted">{formatAddress(user.walletAddress)}</span>
       </button>
 
       {menuOpen && (
         <div
           role="menu"
-          className="absolute right-0 z-50 mt-2 w-60 overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-xl"
+          className="absolute right-0 z-50 mt-2 w-60 overflow-hidden rounded-xl border border-line bg-panel shadow-xl"
         >
-          <div className="border-b border-slate-800 px-4 py-3">
-            <p className="truncate text-sm font-medium text-slate-100">{user.username}</p>
-            <p className="truncate font-mono text-xs text-slate-500">{user.walletAddress}</p>
+          <div className="border-b border-line px-4 py-3">
+            <p className="truncate text-sm font-medium text-strong">{user.username}</p>
+            <p className="truncate font-mono text-xs text-muted">{user.walletAddress}</p>
           </div>
           <Link
             to="/profile"
             role="menuitem"
             onClick={() => setMenuOpen(false)}
-            className="block px-4 py-2 text-sm text-slate-300 transition-colors hover:bg-slate-800"
+            className="block px-4 py-2 text-sm text-body transition-colors hover:bg-elevated"
           >
             Profile
           </Link>
@@ -65,7 +65,7 @@ export function WalletMenu() {
             to="/settings"
             role="menuitem"
             onClick={() => setMenuOpen(false)}
-            className="block px-4 py-2 text-sm text-slate-300 transition-colors hover:bg-slate-800"
+            className="block px-4 py-2 text-sm text-body transition-colors hover:bg-elevated"
           >
             Settings
           </Link>
@@ -75,7 +75,7 @@ export function WalletMenu() {
               setMenuOpen(false)
               void logout()
             }}
-            className="block w-full border-t border-slate-800 px-4 py-2 text-left text-sm text-rose-400 transition-colors hover:bg-slate-800"
+            className="block w-full border-t border-line px-4 py-2 text-left text-sm text-rose-400 transition-colors hover:bg-elevated"
           >
             Disconnect wallet
           </button>

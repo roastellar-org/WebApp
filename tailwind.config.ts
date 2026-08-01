@@ -6,6 +6,13 @@ export default {
   theme: {
     extend: {
       colors: {
+        app: 'var(--color-app)',
+        panel: 'var(--color-panel)',
+        elevated: 'var(--color-elevated)',
+        line: 'var(--color-line)',
+        strong: 'var(--color-strong)',
+        body: 'var(--color-body)',
+        muted: 'var(--color-muted)',
         brand: {
           50: '#eef2ff',
           100: '#e0e7ff',

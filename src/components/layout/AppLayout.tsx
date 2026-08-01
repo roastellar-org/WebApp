@@ -8,6 +8,7 @@ import { usePrefetch } from '../../hooks/usePrefetch'
 import { marketplaceApi, defaultListingFilters } from '../../api/marketplace'
 import { tournamentsApi } from '../../api/tournaments'
 import { leaderboardApi } from '../../api/leaderboard'
+import { BottomNav } from './BottomNav'
 
 const navItems: Array<{ to: string; label: string; icon: IconName }> = [
   { to: '/marketplace', label: 'Marketplace', icon: 'market' },
@@ -18,6 +19,8 @@ const navItems: Array<{ to: string; label: string; icon: IconName }> = [
   { to: '/profile', label: 'Profile', icon: 'user' },
   { to: '/settings', label: 'Settings', icon: 'gear' },
 ]
+
+const primaryNavItems = navItems.slice(0, 5)
 
 export function AppLayout() {
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -51,8 +54,8 @@ export function AppLayout() {
             cn(
               'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
               isActive
-                ? 'bg-brand-950 text-brand-300'
-                : 'text-slate-400 hover:bg-slate-800/70 hover:text-slate-200',
+                ? 'bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-300'
+                : 'text-muted hover:bg-elevated hover:text-strong',
             )
           }
         >
@@ -64,9 +67,15 @@ export function AppLayout() {
   )
 
   return (
-    <div className="flex min-h-screen bg-slate-950">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-slate-800/70 bg-slate-900/40 px-4 py-6 lg:flex">
-        <Link to="/" className="mb-8 flex items-center gap-2 px-2 text-lg font-bold text-slate-100">
+    <div className="flex min-h-screen bg-app">
+      <a
+        href="#main"
+        className="sr-only z-50 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+      >
+        Skip to content
+      </a>
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-line bg-panel px-4 py-6 lg:flex">
+        <Link to="/" className="mb-8 flex items-center gap-2 px-2 text-lg font-bold text-strong">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-violet-500 text-sm font-black text-white">
             A
           </span>
@@ -78,16 +87,16 @@ export function AppLayout() {
       {drawerOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div
-            className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setDrawerOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 w-64 border-r border-slate-800 bg-slate-950 p-4">
+          <div className="absolute inset-y-0 left-0 w-64 border-r border-line bg-app p-4">
             <div className="mb-6 flex items-center justify-between">
-              <span className="text-lg font-bold text-slate-100">ArenaX</span>
+              <span className="text-lg font-bold text-strong">ArenaX</span>
               <button
                 onClick={() => setDrawerOpen(false)}
                 aria-label="Close menu"
-                className="rounded-lg p-2 text-slate-400 hover:bg-slate-800"
+                className="rounded-lg p-2 text-muted hover:bg-elevated"
               >
                 <Icon name="close" />
               </button>
@@ -98,17 +107,17 @@ export function AppLayout() {
       )}
 
       <div className="flex min-w-0 flex-1 flex-col lg:pl-60">
-        <header className="sticky top-0 z-30 border-b border-slate-800/70 bg-slate-950/85 backdrop-blur">
+        <header className="sticky top-0 z-30 border-b border-line bg-app backdrop-blur">
           <div className="flex h-16 items-center justify-between px-4 sm:px-6">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setDrawerOpen(true)}
                 aria-label="Open menu"
-                className="rounded-lg p-2 text-slate-400 hover:bg-slate-800 lg:hidden"
+                className="rounded-lg p-2 text-muted hover:bg-elevated lg:hidden"
               >
                 <Icon name="menu" />
               </button>
-              <Link to="/" className="text-lg font-bold text-slate-100 lg:hidden">
+              <Link to="/" className="text-lg font-bold text-strong lg:hidden">
                 ArenaX
               </Link>
             </div>
@@ -116,10 +125,12 @@ export function AppLayout() {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:px-8">
+        <main id="main" className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 pb-24 sm:px-6 lg:px-8 lg:pb-6">
           <Outlet />
         </main>
       </div>
+
+      <BottomNav items={primaryNavItems} />
     </div>
   )
 }

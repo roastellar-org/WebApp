@@ -34,9 +34,9 @@ export function ListingFilters({ filters, onChange }: ListingFiltersProps) {
     filters.category !== 'ALL' || filters.rarity !== 'ALL' || filters.sort !== 'newest' || Boolean(filters.search)
 
   return (
-    <div className="mb-6 flex flex-col gap-3 rounded-xl border border-slate-800 bg-slate-900/40 p-4 md:flex-row md:items-center">
+    <div className="mb-6 flex flex-col gap-3 rounded-xl border border-line bg-panel p-4 md:flex-row md:items-center">
       <div className="relative flex-1">
-        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-500">
+        <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted">
           <Icon name="search" className="h-4 w-4" />
         </span>
         <Input

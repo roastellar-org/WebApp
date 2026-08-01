@@ -45,7 +45,7 @@ export function PurchaseModal({ listing, open, onClose }: PurchaseModalProps) {
   return (
     <Modal open={open} onClose={onClose} title="Confirm purchase">
       <div className="space-y-5">
-        <div className="flex items-center gap-4 rounded-xl border border-slate-800 bg-slate-950/60 p-4">
+        <div className="flex items-center gap-4 rounded-xl border border-line bg-elevated p-4">
           {asset.imageUrl ? (
             <img src={asset.imageUrl} alt={asset.name} className="h-16 w-16 rounded-lg object-cover" />
           ) : (
@@ -59,11 +59,11 @@ export function PurchaseModal({ listing, open, onClose }: PurchaseModalProps) {
             </div>
           )}
           <div className="min-w-0 flex-1">
-            <p className="truncate font-semibold text-slate-100">{asset.name}</p>
-            <p className="text-xs text-slate-500">
+            <p className="truncate font-semibold text-strong">{asset.name}</p>
+            <p className="text-xs text-muted">
               {asset.category} · {asset.rarity}
             </p>
-            <div className="mt-1 flex items-center gap-2 text-xs text-slate-400">
+            <div className="mt-1 flex items-center gap-2 text-xs text-muted">
               <Avatar src={seller.avatarUrl} name={seller.username} size="xs" />
               {seller.username}
             </div>
@@ -71,13 +71,13 @@ export function PurchaseModal({ listing, open, onClose }: PurchaseModalProps) {
           <p className="text-lg font-bold text-slate-50">{formatPrice(price, currency)}</p>
         </div>
 
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-muted">
           Funds are escrowed by the marketplace contract and released to the seller when the asset transfers.
           Each purchase carries a unique idempotency key, so retrying after a network error never double-charges.
         </p>
 
         {purchase.isError && (
-          <p className="rounded-lg border border-rose-800 bg-rose-950/50 px-3 py-2 text-sm text-rose-300" role="alert">
+          <p className="rounded-lg border border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/50 dark:text-rose-300" role="alert">
             {purchase.error instanceof Error ? purchase.error.message : 'Purchase failed. Please try again.'}
           </p>
         )}

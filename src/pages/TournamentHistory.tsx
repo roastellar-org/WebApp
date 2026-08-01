@@ -29,36 +29,36 @@ export function TournamentHistory() {
         </div>
       ) : data && data.items.length > 0 ? (
         <>
-          <div className="overflow-hidden rounded-xl border border-slate-800">
-            <div className="hidden grid-cols-[1fr_auto_auto_auto] gap-4 border-b border-slate-800 bg-slate-900/60 px-5 py-3 text-xs font-medium uppercase tracking-wide text-slate-500 md:grid">
+          <div className="overflow-hidden rounded-xl border border-line">
+            <div className="hidden grid-cols-[1fr_auto_auto_auto] gap-4 border-b border-line bg-panel px-5 py-3 text-xs font-medium uppercase tracking-wide text-muted md:grid">
               <span>Tournament</span>
               <span>Winner</span>
               <span>Prize pool</span>
               <span>Ended</span>
             </div>
-            <ul className="divide-y divide-slate-800">
+            <ul className="divide-y divide-line">
               {data.items.map((tournament: Tournament) => (
                 <li key={tournament.id}>
                   <Link
                     to={`/tournaments/${tournament.id}`}
-                    className="grid grid-cols-1 gap-3 px-5 py-4 transition-colors hover:bg-slate-900/60 md:grid-cols-[1fr_auto_auto_auto] md:items-center md:gap-4"
+                    className="grid grid-cols-1 gap-3 px-5 py-4 transition-colors hover:bg-panel md:grid-cols-[1fr_auto_auto_auto] md:items-center md:gap-4"
                   >
                     <div className="min-w-0">
-                      <p className="truncate font-medium text-slate-100">{tournament.name}</p>
-                      <p className="text-xs text-slate-500">{tournament.game}</p>
+                      <p className="truncate font-medium text-strong">{tournament.name}</p>
+                      <p className="text-xs text-muted">{tournament.game}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       {tournament.winner ? (
                         <>
                           <Avatar src={tournament.winner.avatarUrl} name={tournament.winner.username} size="xs" />
-                          <span className="text-sm text-slate-300">{tournament.winner.username}</span>
+                          <span className="text-sm text-body">{tournament.winner.username}</span>
                           <Icon name="trophy" className="h-4 w-4 text-amber-400" />
                         </>
                       ) : (
-                        <span className="text-sm text-slate-600">No winner</span>
+                        <span className="text-sm text-muted">No winner</span>
                       )}
                     </div>
-                    <div className="text-sm font-semibold text-slate-100">
+                    <div className="text-sm font-semibold text-strong">
                       {formatPrice(tournament.prizePool, tournament.currency)}
                     </div>
                     <div className="flex items-center justify-between md:justify-end">
@@ -73,14 +73,14 @@ export function TournamentHistory() {
             <button
               disabled={page === 1}
               onClick={() => setPage((prev) => prev - 1)}
-              className="rounded-lg px-3 py-2 text-sm text-slate-400 transition-colors hover:bg-slate-800 disabled:opacity-40"
+              className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-elevated disabled:opacity-40"
             >
               Previous
             </button>
             <button
               disabled={!data.hasMore}
               onClick={() => setPage((prev) => prev + 1)}
-              className="rounded-lg px-3 py-2 text-sm text-slate-400 transition-colors hover:bg-slate-800 disabled:opacity-40"
+              className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-elevated disabled:opacity-40"
             >
               Next
             </button>

@@ -22,26 +22,26 @@ const typeIcons: Record<string, IconName> = {
 function RewardRow({ reward, onPreview }: { reward: Reward; onPreview: (reward: Reward) => void }) {
   const status = normalizeRewardStatus(reward.status)
   return (
-    <li className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-slate-900/40">
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-slate-300">
+    <li className="flex items-center gap-4 px-5 py-4 transition-colors hover:bg-panel">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-elevated text-body">
         <Icon name={typeIcons[reward.type] ?? 'bolt'} className="h-5 w-5" />
       </span>
 
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-2">
-          <p className="font-medium text-slate-100">{reward.source}</p>
+          <p className="font-medium text-strong">{reward.source}</p>
           <Badge tone={rewardStatusTone[status]}>{rewardStatusLabel[status]}</Badge>
         </div>
-        <p className="mt-0.5 text-xs text-slate-500">
+        <p className="mt-0.5 text-xs text-muted">
           {rewardTypeLabel[reward.type]} · {formatRelativeTime(reward.createdAt)}
         </p>
       </div>
 
       <div className="text-right">
-        <p className="font-semibold text-slate-100">
+        <p className="font-semibold text-strong">
           {reward.amount.toLocaleString()} {reward.currency ?? ''}
         </p>
-        <p className="text-xs text-slate-500">{reward.completedAt ? formatDate(reward.completedAt) : '\u00a0'}</p>
+        <p className="text-xs text-muted">{reward.completedAt ? formatDate(reward.completedAt) : '\u00a0'}</p>
       </div>
 
       <div className="flex items-center gap-2">
@@ -77,8 +77,8 @@ export function Rewards() {
         </div>
       ) : data && data.items.length > 0 ? (
         <>
-          <div className="overflow-hidden rounded-xl border border-slate-800">
-            <ul className="divide-y divide-slate-800">
+          <div className="overflow-hidden rounded-xl border border-line">
+            <ul className="divide-y divide-line">
               {data.items.map((reward) => (
                 <RewardRow key={reward.id} reward={reward} onPreview={setPreviewTarget} />
               ))}
@@ -88,14 +88,14 @@ export function Rewards() {
             <button
               disabled={page === 1}
               onClick={() => setPage((prev) => prev - 1)}
-              className="rounded-lg px-3 py-2 text-sm text-slate-400 transition-colors hover:bg-slate-800 disabled:opacity-40"
+              className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-elevated disabled:opacity-40"
             >
               Previous
             </button>
             <button
               disabled={!data.hasMore}
               onClick={() => setPage((prev) => prev + 1)}
-              className="rounded-lg px-3 py-2 text-sm text-slate-400 transition-colors hover:bg-slate-800 disabled:opacity-40"
+              className="rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-elevated disabled:opacity-40"
             >
               Next
             </button>

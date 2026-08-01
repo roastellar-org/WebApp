@@ -17,7 +17,7 @@ export const rarityGradient: Record<Rarity, string> = {
 }
 
 export const rarityBadge: Record<Rarity, string> = {
-  COMMON: 'border-slate-700 bg-slate-800 text-slate-300',
+  COMMON: 'border-line bg-elevated text-body',
   RARE: 'border-sky-800 bg-sky-950 text-sky-300',
   EPIC: 'border-violet-800 bg-violet-950 text-violet-300',
   LEGENDARY: 'border-amber-800 bg-amber-950 text-amber-300',

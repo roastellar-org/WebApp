@@ -59,7 +59,7 @@ export function Tournaments() {
       />
 
       {isFetching && !isPending && (
-        <p className="mb-3 flex items-center gap-2 text-xs text-slate-500" aria-live="polite">
+        <p className="mb-3 flex items-center gap-2 text-xs text-muted" aria-live="polite">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-brand-400" />
           Syncing brackets…
         </p>
@@ -68,7 +68,7 @@ export function Tournaments() {
       {isPending ? (
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
-            <div key={index} className="space-y-4 rounded-xl border border-slate-800 p-5">
+            <div key={index} className="space-y-4 rounded-xl border border-line p-5">
               <Skeleton className="h-5 w-2/3" />
               <Skeleton className="h-3 w-1/3" />
               <Skeleton className="h-10 w-full" />

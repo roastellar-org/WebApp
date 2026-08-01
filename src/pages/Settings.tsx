@@ -76,7 +76,7 @@ export function Settings() {
       <PageHeader title="Settings" description="Manage your profile, notifications and appearance." />
 
       <Card className="space-y-5">
-        <h2 className="font-semibold text-slate-100">Profile</h2>
+        <h2 className="font-semibold text-strong">Profile</h2>
         <Field label="Username" hint="Shown on leaderboards and tournament brackets." htmlFor="settings-username">
           <Input
             id="settings-username"
@@ -97,10 +97,10 @@ export function Settings() {
       </Card>
 
       <Card className="space-y-4">
-        <h2 className="font-semibold text-slate-100">Notifications</h2>
+        <h2 className="font-semibold text-strong">Notifications</h2>
         {Object.entries(notificationLabels).map(([key, label]) => (
           <label key={key} className="flex cursor-pointer items-center justify-between gap-4">
-            <span className="text-sm text-slate-300">{label}</span>
+            <span className="text-sm text-body">{label}</span>
             <input
               type="checkbox"
               checked={Boolean(notifications[key])}
@@ -112,7 +112,7 @@ export function Settings() {
       </Card>
 
       <Card className="space-y-4">
-        <h2 className="font-semibold text-slate-100">Appearance</h2>
+        <h2 className="font-semibold text-strong">Appearance</h2>
         <div className="flex gap-2" role="radiogroup" aria-label="Theme">
           {themeOptions.map((option) => (
             <button
@@ -123,7 +123,7 @@ export function Settings() {
               className={
                 theme === option.id
                   ? 'rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white'
-                  : 'rounded-lg bg-slate-800 px-4 py-2 text-sm text-slate-300 hover:bg-slate-700'
+                  : 'rounded-lg bg-elevated px-4 py-2 text-sm text-body hover:bg-elevated'
               }
             >
               {option.label}
@@ -133,8 +133,8 @@ export function Settings() {
       </Card>
 
       <Card className="space-y-3">
-        <h2 className="font-semibold text-slate-100">Session</h2>
-        <p className="text-sm text-slate-400">
+        <h2 className="font-semibold text-strong">Session</h2>
+        <p className="text-sm text-muted">
           Signed in with <span className="font-mono">{me?.walletAddress}</span>
         </p>
         <Button variant="danger" onClick={() => void logout()}>

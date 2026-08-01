@@ -45,24 +45,24 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
   return (
     <Modal open={open} onClose={onClose} title="Connect your wallet">
       <div className="space-y-5">
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-muted">
           Sign in with your wallet to create your player identity. ArenaX will never move funds without your
           explicit signature.
         </p>
 
         {step === 'connecting' && (
-          <p className="text-sm text-slate-300">Waiting for approval in your wallet&hellip;</p>
+          <p className="text-sm text-body">Waiting for approval in your wallet&hellip;</p>
         )}
         {step === 'signing' && (
-          <p className="text-sm text-slate-300">
-            Signing message for <span className="font-mono text-brand-300">{formatAddress(address ?? '')}</span>
+          <p className="text-sm text-body">
+            Signing message for <span className="font-mono text-brand-700 dark:text-brand-300">{formatAddress(address ?? '')}</span>
             &hellip;
           </p>
         )}
-        {step === 'success' && <p className="text-sm text-emerald-300">Identity verified. Entering the arena&hellip;</p>}
+        {step === 'success' && <p className="text-sm text-emerald-700 dark:text-emerald-300">Identity verified. Entering the arena&hellip;</p>}
 
         {displayedError && (
-          <p className="rounded-lg border border-rose-800 bg-rose-950/50 px-3 py-2 text-sm text-rose-300" role="alert">
+          <p className="rounded-lg border border-rose-200 bg-rose-50 text-rose-700 dark:border-rose-800 dark:bg-rose-950/50 dark:text-rose-300" role="alert">
             {displayedError}
           </p>
         )}
@@ -74,7 +74,7 @@ export function LoginDialog({ open, onClose }: LoginDialogProps) {
               ? 'Waiting for signature…'
               : 'Connect with MetaMask'}
         </Button>
-        <p className="text-center text-xs text-slate-600">
+        <p className="text-center text-xs text-muted">
           Supports any injected EVM wallet (MetaMask, Coinbase Wallet, Rainbow).
         </p>
       </div>

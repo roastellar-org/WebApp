@@ -24,7 +24,7 @@ export function Marketplace() {
       {isPending ? (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 8 }).map((_, index) => (
-            <div key={index} className="overflow-hidden rounded-xl border border-slate-800">
+            <div key={index} className="overflow-hidden rounded-xl border border-line">
               <Skeleton className="h-36 rounded-none" />
               <div className="space-y-3 p-4">
                 <Skeleton className="h-4 w-3/4" />
@@ -49,7 +49,7 @@ export function Marketplace() {
             >
               Previous
             </Button>
-            <span className="text-sm text-slate-500">
+            <span className="text-sm text-muted">
               Page {data.page} of {Math.max(1, Math.ceil(data.total / data.pageSize))}
             </span>
             <Button
@@ -60,7 +60,7 @@ export function Marketplace() {
               Next
             </Button>
           </div>
-          {isFetching && <p className="mt-4 text-center text-xs text-slate-600">Updating listings…</p>}
+          {isFetching && <p className="mt-4 text-center text-xs text-muted">Updating listings…</p>}
         </>
       ) : (
         <EmptyState

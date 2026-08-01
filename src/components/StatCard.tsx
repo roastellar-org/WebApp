@@ -12,9 +12,9 @@ interface StatCardProps {
 export function StatCard({ label, value, hint, className }: StatCardProps) {
   return (
     <Card className={cn('space-y-1', className)}>
-      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</p>
-      <p className="text-2xl font-semibold text-slate-100">{value}</p>
-      {hint && <p className="text-xs text-slate-500">{hint}</p>}
+      <p className="text-xs font-medium uppercase tracking-wide text-muted">{label}</p>
+      <p className="text-2xl font-semibold text-strong">{value}</p>
+      {hint && <p className="text-xs text-muted">{hint}</p>}
     </Card>
   )
 }
