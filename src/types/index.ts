@@ -4,6 +4,25 @@ export interface User {
   walletAddress: string
   avatarUrl?: string | null
   createdAt: string
+  stats?: UserStats
+}
+
+export interface WeeklyActivity {
+  date: string
+  matches: number
+  wins: number
+}
+
+export interface UserStats {
+  wins: number
+  losses: number
+  matchesPlayed: number
+  tournamentsPlayed: number
+  totalEarnings: number
+  bestRank: number | null
+  winRate: number
+  points: number
+  weeklyActivity: WeeklyActivity[]
 }
 
 export interface AuthSession {
