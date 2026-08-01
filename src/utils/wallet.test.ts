@@ -10,6 +10,7 @@ describe('normalizeWalletError', () => {
     expect(normalizeWalletError({ code: 'userRejectedRequest' }).code).toBe('USER_REJECTED')
     expect(normalizeWalletError({ code: 'ACTION_REJECTED' }).code).toBe('USER_REJECTED')
     expect(normalizeWalletError({ code: 'action_rejected' }).code).toBe('USER_REJECTED')
+    expect(normalizeWalletError({ code: 'USER_REJECTED' }).code).toBe('USER_REJECTED')
   })
 
   it('maps rejected/denied messages to USER_REJECTED', () => {
